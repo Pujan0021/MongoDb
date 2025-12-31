@@ -26,6 +26,13 @@ app.get("/users", async (req, res) => {
     res.status(200).json(users);
 
 });
+app.get("/users", async (req, res) => {
+
+    const users = await userDetails.findOneAndDelete(
+        { name: "Buddhi" }
+
+    )
+});
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
