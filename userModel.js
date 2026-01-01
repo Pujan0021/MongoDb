@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/");
-const userSchema = mongoose.Schema({
+mongoose.connect("mongodb://localhost:27017/NodeJsTraining");
+const userSchema = new mongoose.Schema({
     name: String,
     nickname: String,
     email: String,
