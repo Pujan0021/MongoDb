@@ -6,8 +6,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const User = require("./userModel.js");
 app.get("/signup", (req, res) => {
-    res.send(
-        `<head>
+  res.send(
+    `<head>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -73,10 +73,10 @@ app.get("/signup", (req, res) => {
 
 </body>
 `
-    )
+  )
 })
 app.get("/login", (req, res) => {
-    res.send(`<!DOCTYPE html>
+  res.send(`<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -89,7 +89,7 @@ app.get("/login", (req, res) => {
   <div class="w-full max-w-md bg-white rounded-lg shadow-md p-8">
     <h2 class="text-2xl font-bold text-center mb-6">Login</h2>
     
-    <form method="POST" action="/welcome" class="space-y-4">
+    <form method="POST" action="/login" class="space-y-4">
       <!-- Email -->
       <div>
         <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
@@ -129,17 +129,47 @@ app.get("/login", (req, res) => {
 </html>`)
 
 })
+app.get("/welcome", (req, res) => {
+  res.send(
+    `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome Interface</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <!-- Card Container -->
+  <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full text-center">
+    
+    <!-- Logo / Icon -->
+    <div class="flex justify-center mb-4">
+      <div class="bg-blue-500 text-white rounded-full p-4">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M12 11c0-1.1.9-2 2-2h6m-8 0H6m6 0v6m0-6V5" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Welcome Text -->
+    <h1 class="text-2xl font-bold text-gray-800 mb-2">Welcome, User!</h1>
+    <p class="text-gray-600 mb-6">
+      We're glad to have you here. Let’s get started with your journey`
+  )
+})
 app.post("/signup", async (req, res) => {
-    const createUser = await User.create(req.body);
-    res.redirect(301, "/login");
+  await User.create(req.body);
+  res.redirect(301, "/login");
 
 })
+app.post("/login", async (req, res) => {
+  res.redirect(301, "/welcome")
 
-const userData = async () => {
-    await User.find();
-}
-console.log(userData)
-
+})
 app.listen(PORT, () => {
-    console.log("SuccessFully Connected To The Server")
+  console.log("SuccessFully Connected To The Server")
 })
